@@ -12,7 +12,27 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+
+/* SCROLL BEHAVIOR SETTINGS */
+html { 
+    scroll-behavior: smooth; 
+}
+
+/* FIX 1: Global Scroll Offset
+   Reduced to 50px. This pulls the section up slightly under the navbar shadow
+   to ensure the previous section (e.g., the blue bar) is completely hidden.
+*/
+section {
+    scroll-margin-top: 50px; 
+}
+
+/* FIX 2: Specific About Me Offset
+   Reduced to 130px. This hides the "View Work" buttons above
+   but leaves just enough space for the head popup + navbar.
+*/
+#about {
+    scroll-margin-top: 175px;
+}
 
 body { 
     background: var(--white); 
@@ -104,10 +124,10 @@ a { text-decoration: none; color: inherit; transition: 0.3s; }
 .deck-card:hover { background: var(--blue); color: white; border-color: var(--blue); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2); }
 
 /* =========================================
-   5. ABOUT ME (Fully Responsive, Left Aligned, Compact)
+   5. ABOUT ME
    ========================================= */
 .about-compact-section {
-    margin-top: 60px; /* Reduced gap to bring section closer to Hero */
+    margin-top: 60px; 
     padding-top: 0;
     padding-bottom: 0;
     overflow: visible !important; 
@@ -117,22 +137,19 @@ a { text-decoration: none; color: inherit; transition: 0.3s; }
 
 .about-grid-compact {
     display: flex;
-    justify-content: flex-start; /* Desktop: Image sticks to the Left */
-    align-items: flex-end;       /* Desktop: Aligns bottom of image with text box */
-    gap: 30px;                   /* Tight gap for a compact look */
+    justify-content: flex-start; 
+    align-items: flex-end;       
+    gap: 30px; 
 }
 
 .pop-out-img {
-    flex: 0 0 350px; /* Locked width for Desktop to show full arms */
-    width: 350px;
-    
-    margin-top: -120px; /* Pop-out height */
+    flex: 0 0 350px; 
+    width: 350px; 
+    margin-top: -120px; 
     margin-bottom: 0;
-    
     border: none !important;
     box-shadow: none !important;
     background: transparent !important;
-    
     position: relative;
     z-index: 100;
     line-height: 0;
@@ -150,34 +167,29 @@ a { text-decoration: none; color: inherit; transition: 0.3s; }
 
 .about-txt {
     flex: 1; 
-    /* Reduced vertical padding shrinks the gray box height */
     padding-top: 30px;
     padding-bottom: 30px;
     font-size: 1.05rem;
-    
-    /* Max-width 800px allows text to spread wide, reducing height */
     max-width: 800px;
 }
 
-/* Mobile & Tablet Portrait Adjustments */
+/* Mobile Adjustments */
 @media (max-width: 900px) {
-    .about-compact-section { 
-        margin-top: 80px; /* Slightly more space on mobile for safe area */
-    }
+    .about-compact-section { margin-top: 80px; }
     .about-grid-compact { 
-        flex-direction: column; /* Stack vertically */
-        align-items: center;    /* Center everything */
+        flex-direction: column; 
+        align-items: center; 
         gap: 0;
     }
     .pop-out-img { 
-        margin-top: -80px; /* Reduced pop-out for mobile screens */
+        margin-top: -80px; 
         flex: 0 0 auto;
-        width: 80%;       /* Fluid width */
-        max-width: 320px; /* Cap size */
+        width: 80%; 
+        max-width: 320px;
     }
     .about-txt { 
         padding: 30px 20px; 
-        text-align: center; /* Center text on mobile */
+        text-align: center; 
     }
 }
 
