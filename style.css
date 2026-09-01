@@ -415,10 +415,13 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
         max-width: 320px;
     }
     
-    /* Left Align About Me Text */
+    /* Left Align About Me Text, but keep Title Centered */
     .about-txt { 
         padding: 30px 20px; 
         text-align: left; 
+    }
+    .about-txt h2 {
+        text-align: center;
     }
 }
 
@@ -459,8 +462,14 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
     .impact-lbl {
         font-size: 0.85rem;
     }
+    
+    /* --- 3. SOFTWARE SKILLS (Left Align Text) --- */
+    /* Only targets the text lists under AI Tools and Management */
+    .clean-list {
+        text-align: left;
+    }
 
-    /* --- 3. EXPERTISE (2 Columns, last item full width) --- */
+    /* --- 4. EXPERTISE (2 Columns, last item full width) --- */
     .grid-tags {
         display: flex;
         flex-wrap: wrap;
@@ -482,7 +491,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
         flex: 0 0 100%;
     }
 
-    /* --- 4. CLIENTELE (3 Columns, Hotstar hidden) --- */
+    /* --- 5. CLIENTELE (3 Columns, Hotstar hidden) --- */
     /* Target Hotstar via its unique URL to hide on mobile */
     a[href="https://www.instagram.com/p/CP5FkD3BcEw/"] {
         display: none !important;
@@ -513,7 +522,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
         text-align: center;
     }
 
-    /* --- 5. EXPERIENCE ACCORDION (Date & Plus Button Fix) --- */
+    /* --- 6. EXPERIENCE ACCORDION (Date & Plus Button Fix) --- */
     .acc-title-group {
         flex: 1 1 100%;
         margin-bottom: 10px;
@@ -527,14 +536,14 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
         min-width: auto;
     }
 
-    /* --- 6. FLEXIBLE GRIDS (Part-Time, Achievements, Education) --- */
-    .flexible-grid, .education-grid {
+    /* --- 7. FLEXIBLE GRIDS (Part-Time, Achievements) --- */
+    .flexible-grid {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
         gap: 15px; 
     }
-    .pt-card, .ach-card, .edu-box-card {
+    .pt-card, .ach-card {
         flex: 0 0 calc(50% - 7.5px); 
         min-width: 0; 
         max-width: none;
@@ -548,9 +557,9 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
     }
     
     /* Flexible Grids Typography */
-    .pt-card h4, .ach-text h4, .edu-box-card h3 { font-size: 0.9rem; }
-    .pt-comp, .ach-text p, .edu-box-card p { font-size: 0.8rem; }
-    .pt-date, .pt-note, .edu-year-pill { font-size: 0.75rem; }
+    .pt-card h4, .ach-text h4 { font-size: 0.9rem; }
+    .pt-comp, .ach-text p { font-size: 0.8rem; }
+    .pt-date, .pt-note { font-size: 0.75rem; }
 
     /* Achievements mobile layout override */
     .ach-card {
@@ -566,4 +575,25 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
         font-size: 1.5rem;
     }
     .ach-text h4 { margin-bottom: 3px; }
+    
+    /* --- 8. EDUCATION GRID (2 Columns, matching heights) --- */
+    .education-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px; 
+    }
+    .edu-box-card {
+        padding: 15px 10px;
+        height: 100%; /* Ensures cards stretch to match the tallest in their row */
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Vertically centers the text content */
+    }
+    .edu-box-card h3 { font-size: 0.9rem; }
+    .edu-box-card p { font-size: 0.8rem; }
+    .edu-year-pill { 
+        font-size: 0.75rem; 
+        padding: 4px 10px;
+        margin-top: auto; /* Pushes the pill to the bottom of the card for perfect alignment */
+    }
 }
