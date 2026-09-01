@@ -413,7 +413,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
 #backToTop:hover { background-color: #555; }
 
 /* =========================================
-   14. MEDIA QUERIES
+   14. MEDIA QUERIES (Mobile Adjustments)
    ========================================= */
 @media (max-width: 1024px) {
     .nav-links { display: none; }
@@ -423,21 +423,39 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
 
 @media (max-width: 768px) {
     .name-title { font-size: 2.5rem; }
-    
-    .hero-cta-block .portfolio-deck { flex-direction: column; width: 100%; }
     .social-row-center { flex-direction: column; }
     .mini-contact-row { flex-direction: column; gap: 15px; }
-    
-    /* Kept elements that need 1-column layout */
-    .contact-split, .video-grid, .achievements-grid, .activations-grid { grid-template-columns: 1fr; }
 
-    /* --- 1. EXPERTISE (2 Columns) --- */
+    /* --- 1. HERO CTA / VIEW WORK (2 Columns, centered last) --- */
+    .hero-cta-block .portfolio-deck { 
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+    }
+    .deck-label { 
+        width: 100%; 
+        text-align: center;
+        margin-right: 0;
+        margin-bottom: 5px;
+    }
+    .deck-card {
+        flex: 0 0 calc(50% - 5px);
+        justify-content: center;
+        padding: 8px 5px;
+        font-size: 0.75rem;
+    }
+
+    /* --- 2. EXPERTISE (2 Columns, centered last) --- */
     .grid-tags {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
         gap: 10px;
     }
     .tag-item {
+        flex: 0 0 calc(50% - 5px);
         padding: 10px;
         font-size: 0.8rem;
         display: flex;
@@ -447,61 +465,78 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
         line-height: 1.2;
     }
 
-    /* --- 2. CLIENTELE (2 Columns) --- */
+    /* --- 3. CLIENTELE (3 Columns) --- */
     .client-grid {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         gap: 10px;
     }
     .client-card {
         flex: unset; 
         width: 100%;
-        padding: 15px 10px;
+        padding: 15px 5px;
+    }
+    .client-card span {
+        font-size: 0.75rem;
+        text-align: center;
+        word-break: break-word;
     }
     .client-icon {
         font-size: 1.5rem;
+        margin-bottom: 5px;
     }
     .fmcg-card {
-        grid-column: span 2;
+        grid-column: span 3;
         flex-direction: column;
         text-align: center;
     }
 
-    /* --- 3. PART-TIME & INTERNSHIPS (2 Columns) --- */
-    .flexible-grid {
-        gap: 15px; /* Compresses spacing for cards on mobile */
+    /* --- 4. EXPERIENCE ACCORDION (Date & Plus Button Fix) --- */
+    .acc-title-group {
+        flex: 1 1 100%;
+        margin-bottom: 10px;
     }
-    .pt-card {
-        flex: 1 1 calc(50% - 15px);
-        min-width: 0; 
-        padding: 15px 10px;
+    .acc-meta {
+        width: 100%;
+        justify-content: space-between;
     }
-    .pt-card h4 {
-        font-size: 0.9rem;
-    }
-    .pt-comp {
-        font-size: 0.8rem;
-    }
-    .pt-date, .pt-note {
-        font-size: 0.75rem;
+    .acc-meta .date {
+        text-align: left;
+        min-width: auto;
     }
 
-    /* --- 4. EDUCATION (2 Columns) --- */
-    .education-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
+    /* --- 5. FLEXIBLE GRIDS (Part-Time, Achievements, Education) --- */
+    /* Shared 2-column flex setup that automatically centers odd items */
+    .flexible-grid, .education-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px; 
     }
-    .edu-box-card {
+    .pt-card, .ach-card, .edu-box-card {
+        flex: 0 0 calc(50% - 7.5px); 
+        min-width: 0; 
+        max-width: none;
         padding: 15px 10px;
     }
-    .edu-box-card h3 {
-        font-size: 0.9rem;
+    
+    /* Typography Overrides */
+    .pt-card h4, .ach-text h4, .edu-box-card h3 { font-size: 0.9rem; }
+    .pt-comp, .ach-text p, .edu-box-card p { font-size: 0.8rem; }
+    .pt-date, .pt-note, .edu-year-pill { font-size: 0.75rem; }
+
+    /* Achievements specific overrides (stack icon and text vertically on mobile) */
+    .ach-card {
+        flex-direction: column; 
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        gap: 10px;
     }
-    .edu-box-card p {
-        font-size: 0.8rem;
+    .ach-icon {
+        margin: 0;
+        padding: 10px;
+        font-size: 1.5rem;
     }
-    .edu-year-pill {
-        padding: 4px 10px;
-        font-size: 0.75rem;
-    }
+    .ach-text h4 { margin-bottom: 3px; }
 }
