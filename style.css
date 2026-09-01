@@ -173,26 +173,6 @@ a { text-decoration: none; color: inherit; transition: 0.3s; }
     max-width: 800px;
 }
 
-/* Mobile Adjustments */
-@media (max-width: 900px) {
-    .about-compact-section { margin-top: 80px; }
-    .about-grid-compact { 
-        flex-direction: column; 
-        align-items: center; 
-        gap: 0;
-    }
-    .pop-out-img { 
-        margin-top: -80px; 
-        flex: 0 0 auto;
-        width: 80%; 
-        max-width: 320px;
-    }
-    .about-txt { 
-        padding: 30px 20px; 
-        text-align: center; 
-    }
-}
-
 /* Original About Grid (Fallback) */
 .about-grid { display: flex; align-items: center; gap: 40px; justify-content: center; }
 .about-img-box { 
@@ -421,12 +401,33 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
     .nav-links.active { display: flex; flex-direction: column; position: absolute; top: 70px; left: 0; width: 100%; background: white; padding: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
 }
 
+@media (max-width: 900px) {
+    .about-compact-section { margin-top: 80px; }
+    .about-grid-compact { 
+        flex-direction: column; 
+        align-items: center; 
+        gap: 0;
+    }
+    .pop-out-img { 
+        margin-top: -80px; 
+        flex: 0 0 auto;
+        width: 80%; 
+        max-width: 320px;
+    }
+    
+    /* Left Align About Me Text */
+    .about-txt { 
+        padding: 30px 20px; 
+        text-align: left; 
+    }
+}
+
 @media (max-width: 768px) {
     .name-title { font-size: 2.5rem; }
     .social-row-center { flex-direction: column; }
     .mini-contact-row { flex-direction: column; gap: 15px; }
 
-    /* --- 1. HERO CTA / VIEW WORK (2 Columns, centered last) --- */
+    /* --- 1. HERO CTA / VIEW WORK (2 Columns) --- */
     .hero-cta-block .portfolio-deck { 
         display: flex;
         flex-wrap: wrap;
@@ -447,7 +448,19 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
         font-size: 0.75rem;
     }
 
-    /* --- 2. EXPERTISE (2 Columns, centered last) --- */
+    /* --- 2. IMPACT SECTION (2 Columns) --- */
+    .impact-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    .impact-num {
+        font-size: 2.5rem; /* slightly smaller to fit side-by-side */
+    }
+    .impact-lbl {
+        font-size: 0.85rem;
+    }
+
+    /* --- 3. EXPERTISE (2 Columns, last item full width) --- */
     .grid-tags {
         display: flex;
         flex-wrap: wrap;
@@ -464,8 +477,17 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
         text-align: center;
         line-height: 1.2;
     }
+    /* Make the last odd item stretch full width */
+    .tag-item:last-child:nth-child(odd) {
+        flex: 0 0 100%;
+    }
 
-    /* --- 3. CLIENTELE (3 Columns) --- */
+    /* --- 4. CLIENTELE (3 Columns, Hotstar hidden) --- */
+    /* Target Hotstar via its unique URL to hide on mobile */
+    a[href="https://www.instagram.com/p/CP5FkD3BcEw/"] {
+        display: none !important;
+    }
+
     .client-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -491,7 +513,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
         text-align: center;
     }
 
-    /* --- 4. EXPERIENCE ACCORDION (Date & Plus Button Fix) --- */
+    /* --- 5. EXPERIENCE ACCORDION (Date & Plus Button Fix) --- */
     .acc-title-group {
         flex: 1 1 100%;
         margin-bottom: 10px;
@@ -505,8 +527,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
         min-width: auto;
     }
 
-    /* --- 5. FLEXIBLE GRIDS (Part-Time, Achievements, Education) --- */
-    /* Shared 2-column flex setup that automatically centers odd items */
+    /* --- 6. FLEXIBLE GRIDS (Part-Time, Achievements, Education) --- */
     .flexible-grid, .education-grid {
         display: flex;
         flex-wrap: wrap;
@@ -520,12 +541,18 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
         padding: 15px 10px;
     }
     
-    /* Typography Overrides */
+    /* Make the final odd card in Part-Time & Achievements fill full width */
+    .pt-card:last-child:nth-child(odd),
+    .ach-card:last-child:nth-child(odd) {
+        flex: 0 0 100%;
+    }
+    
+    /* Flexible Grids Typography */
     .pt-card h4, .ach-text h4, .edu-box-card h3 { font-size: 0.9rem; }
     .pt-comp, .ach-text p, .edu-box-card p { font-size: 0.8rem; }
     .pt-date, .pt-note, .edu-year-pill { font-size: 0.75rem; }
 
-    /* Achievements specific overrides (stack icon and text vertically on mobile) */
+    /* Achievements mobile layout override */
     .ach-card {
         flex-direction: column; 
         justify-content: center;
