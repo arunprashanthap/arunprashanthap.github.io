@@ -11,25 +11,53 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
     // 2. BACK TO TOP
-    const backToTopBtn = document.createElement('button');
-    backToTopBtn.id = 'backToTop';
-    backToTopBtn.innerHTML = '<span class="material-symbols-outlined">arrow_upward</span>';
-    document.body.appendChild(backToTopBtn);
+    let backToTopBtn = document.getElementById('backToTop');
+    if (!backToTopBtn) {
+        backToTopBtn = document.createElement('button');
+        backToTopBtn.id = 'backToTop';
+        backToTopBtn.innerHTML = '<span class="material-symbols-outlined">arrow_upward</span>';
+        document.body.appendChild(backToTopBtn);
+    }
 
-    window.onscroll = function() {
+    window.addEventListener('scroll', () => {
         if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
             backToTopBtn.style.display = "block";
         } else {
             backToTopBtn.style.display = "none";
         }
-    };
-
-    backToTopBtn.addEventListener('click', () => {
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
     });
 
-    // 3. IMPACT COUNTER
+    backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // 3. EXPERTISE PILLARS (TAB SWITCHING)
+    const pillarBtns = document.querySelectorAll('.pillar-btn');
+    const pillarPanels = document.querySelectorAll('.pillar-panel');
+
+    pillarBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetId = btn.getAttribute('data-pillar');
+
+            pillarBtns.forEach(b => {
+                b.classList.remove('active');
+                b.setAttribute('aria-selected', 'false');
+            });
+            pillarPanels.forEach(panel => {
+                panel.classList.remove('active');
+            });
+
+            btn.classList.add('active');
+            btn.setAttribute('aria-selected', 'true');
+
+            const targetPanel = document.getElementById(targetId);
+            if (targetPanel) {
+                targetPanel.classList.add('active');
+            }
+        });
+    });
+
+    // 4. IMPACT COUNTER
     const statsSection = document.querySelector('.impact-section');
     let hasCounted = false;
     
@@ -47,10 +75,11 @@ document.addEventListener('DOMContentLoaded', () => {
                             counter.innerText = Math.ceil(count);
                             requestAnimationFrame(update);
                         } else {
-                            if(target === 150) counter.innerText = "150+";
-                            else if(target === 12) counter.innerText = "12+";
-                            else if(target === 50) counter.innerText = "~60%";
-							else if(target === 15) counter.innerText = "15M+";
+                            if (target === 50) counter.innerText = "50+";
+                            else if (target === 150) counter.innerText = "150+";
+                            else if (target === 12) counter.innerText = "12+";
+                            else if (target === 60 || target === 50) counter.innerText = "~60%";
+                            else if (target === 15) counter.innerText = "15M+";
                             else counter.innerText = target + "+";
                         }
                     };
@@ -62,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
         statsObserver.observe(statsSection);
     }
 
-    // 4. ACCORDION
+    // 5. ACCORDION
     document.querySelectorAll('.acc-header').forEach(header => {
         header.addEventListener('click', () => {
             const item = header.parentElement;
@@ -76,46 +105,52 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 5. CAROUSEL
+    // 6. CAROUSEL
     const track = document.querySelector('.carousel-track');
     const prev = document.getElementById('prevBtn');
     const next = document.getElementById('nextBtn');
     const cards = document.querySelectorAll('.small-card');
     
-    if(track && cards.length > 0) {
+    if (track && cards.length > 0 && prev && next) {
         let index = 0;
-        const cardWidth = cards[0].offsetWidth + 20; 
-        const visible = Math.floor(track.parentElement.offsetWidth / cardWidth);
-        
+
+        const updateCarousel = () => {
+            const cardWidth = cards[0].offsetWidth + 20;
+            track.style.transform = `translateX(-${index * cardWidth}px)`;
+        };
+
         next.addEventListener('click', () => {
-            if(index < cards.length - visible) {
+            const cardWidth = cards[0].offsetWidth + 20;
+            const visible = Math.max(1, Math.floor(track.parentElement.offsetWidth / cardWidth));
+            if (index < cards.length - visible) {
                 index++;
-                track.style.transform = `translateX(-${index * cardWidth}px)`;
             } else {
                 index = 0; 
-                track.style.transform = `translateX(0px)`;
             }
+            updateCarousel();
         });
 
         prev.addEventListener('click', () => {
-            if(index > 0) {
+            if (index > 0) {
                 index--;
-                track.style.transform = `translateX(-${index * cardWidth}px)`;
+                updateCarousel();
             }
         });
+
+        window.addEventListener('resize', updateCarousel);
     }
 
-    // 6. MOBILE MENU
+    // 7. MOBILE MENU
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
-    if(hamburger) {
+    if (hamburger && navLinks) {
         hamburger.addEventListener('click', () => {
             navLinks.classList.toggle('active');
         });
     }
     document.querySelectorAll('.nav-links a').forEach(link => {
         link.addEventListener('click', () => {
-            navLinks.classList.remove('active');
+            if (navLinks) navLinks.classList.remove('active');
         });
     });
 });

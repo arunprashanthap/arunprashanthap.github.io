@@ -18,18 +18,12 @@ html {
     scroll-behavior: smooth; 
 }
 
-/* FIX 1: Global Scroll Offset
-   Reduced to 50px. This pulls the section up slightly under the navbar shadow
-   to ensure the previous section (e.g., the blue bar) is completely hidden.
-*/
+/* FIX 1: Global Scroll Offset */
 section {
     scroll-margin-top: 50px; 
 }
 
-/* FIX 2: Specific About Me Offset
-   Reduced to 130px. This hides the "View Work" buttons above
-   but leaves just enough space for the head popup + navbar.
-*/
+/* FIX 2: Specific About Me Offset */
 #about {
     scroll-margin-top: 175px;
 }
@@ -183,9 +177,65 @@ a { text-decoration: none; color: inherit; transition: 0.3s; }
 .about-img-box img { width: 100%; height: 100%; object-fit: cover; }
 
 /* =========================================
-   6. EXPERTISE & SKILLS
+   6. EXPERTISE (PILLARED) & SOFTWARE SKILLS
    ========================================= */
+.pillar-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 35px;
+}
+
+.pillar-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--light-gray);
+    border: 1px solid var(--border);
+    color: #333;
+    padding: 12px 22px;
+    border-radius: 8px;
+    font-family: var(--font-main);
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.pillar-btn .material-symbols-outlined {
+    font-size: 1.2rem;
+    color: var(--blue);
+    transition: color 0.3s ease;
+}
+
+.pillar-btn:hover {
+    border-color: var(--blue);
+    color: var(--blue);
+    transform: translateY(-2px);
+}
+
+.pillar-btn.active {
+    background: var(--blue);
+    color: var(--white);
+    border-color: var(--blue);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.25);
+}
+
+.pillar-btn.active .material-symbols-outlined {
+    color: var(--white);
+}
+
 .grid-tags { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; }
+.pillar-panel { display: none; animation: pillarFade 0.3s ease-out; }
+.pillar-panel.active { display: flex; }
+
+@keyframes pillarFade {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 .tag-item { background: white; border: 1px solid var(--border); padding: 12px 24px; font-weight: 600; border-radius: 50px; transition: 0.3s; cursor: default; }
 .tag-item:hover { background: var(--blue); color: white; border-color: var(--blue); transform: translateY(-3px); }
 .blue-highlight { background: white; color: #333; }
@@ -193,10 +243,16 @@ a { text-decoration: none; color: inherit; transition: 0.3s; }
 
 .skills-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
 .skill-col h3 { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 20px; font-size: 1.2rem; }
+.icon-blue { color: var(--blue); }
 .clean-list { list-style: none; text-align: center; }
 .clean-list li { padding: 8px 0; border-bottom: 1px solid #ddd; font-size: 0.95rem; }
+.progress-item { margin-bottom: 12px; }
+.p-label { display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: 600; margin-bottom: 4px; }
 .p-bar { height: 8px; background: #ddd; border-radius: 4px; overflow: hidden; }
 .p-fill { height: 100%; background: var(--blue); border-radius: 4px; }
+.p-fill[fill-level="95"] { width: 95%; }
+.p-fill[fill-level="65"] { width: 65%; }
+.p-fill[fill-level="60"] { width: 60%; }
 
 /* =========================================
    7. IMPACT STRIP
@@ -248,7 +304,6 @@ a { text-decoration: none; color: inherit; transition: 0.3s; }
 /* =========================================
    10. FLEX/GRID COMPONENTS (Unified)
    ========================================= */
-/* Container for Centered Items (Achievements, Part-Time, Student Work) */
 .flexible-grid { 
     display: flex; 
     flex-wrap: wrap; 
@@ -258,7 +313,6 @@ a { text-decoration: none; color: inherit; transition: 0.3s; }
     margin: 0 auto 30px; 
 }
 
-/* Unified Card Style */
 .pt-card, .ach-card, .act-card { 
     flex: 1 1 300px; 
     max-width: 450px; 
@@ -281,13 +335,11 @@ a { text-decoration: none; color: inherit; transition: 0.3s; }
     box-shadow: 0 10px 20px rgba(0,0,0,0.05); 
 }
 
-/* Card Typography */
 .pt-card h4, .ach-card h4, .act-card h4 { font-size: 1.1rem; margin-bottom: 5px; }
 .pt-comp { font-weight: 600; color: var(--blue); font-size: 0.95rem; }
 .pt-date { font-size: 0.85rem; color: #888; display: block; margin-top: 5px; }
 .ach-card p, .act-card p { font-size: 0.9rem; margin: 0; color: #666; }
 
-/* Achievements Specific: Side by Side Layout Override */
 .ach-card { flex-direction: row; justify-content: flex-start; text-align: left; gap: 20px; padding: 25px; }
 .ach-icon { font-size: 2rem; color: var(--blue); background: #eff6ff; padding: 12px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .ach-text h4 { margin: 0 0 5px 0; }
@@ -296,7 +348,6 @@ a { text-decoration: none; color: inherit; transition: 0.3s; }
 /* =========================================
    11. CLIENTELE & EDUCATION
    ========================================= */
-/* Clientele */
 .category-title { font-size: 1.1rem; color: #555; text-transform: uppercase; margin-bottom: 20px; border-bottom: 2px solid #eee; display: inline-block; padding-bottom: 5px; margin-top: 40px; }
 .client-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
 .client-card { flex: 0 0 180px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; background: white; border: 1px solid var(--border); border-radius: 8px; transition: 0.3s; cursor: pointer; color: #555; text-decoration: none; }
@@ -415,7 +466,6 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
         max-width: 320px;
     }
     
-    /* Left Align About Me Text, but keep Title Centered */
     .about-txt { 
         padding: 30px 20px; 
         text-align: left; 
@@ -427,6 +477,8 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
 
 @media (max-width: 768px) {
     .name-title { font-size: 2.5rem; }
+    .tagline { font-size: 1.2rem; }
+    .cred-line { font-size: 0.8rem; }
     .social-row-center { flex-direction: column; }
     .mini-contact-row { flex-direction: column; gap: 15px; }
 
@@ -457,24 +509,49 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
         gap: 15px;
     }
     .impact-num {
-        font-size: 2.5rem; /* slightly smaller to fit side-by-side */
+        font-size: 2.5rem;
     }
     .impact-lbl {
         font-size: 0.85rem;
     }
+    .market-row {
+        font-size: 0.95rem;
+        flex-direction: column;
+        gap: 5px;
+    }
     
     /* --- 3. SOFTWARE SKILLS (Left Align Text) --- */
-    /* Only targets the text lists under AI Tools and Management */
     .clean-list {
         text-align: left;
     }
 
-    /* --- 4. EXPERTISE (2 Columns, last item full width) --- */
+    /* --- 4. EXPERTISE PILLARS & TAGS (2 Columns on Mobile) --- */
+    .pillar-nav {
+        gap: 8px;
+        margin-bottom: 25px;
+    }
+    .pillar-btn {
+        flex: 0 0 calc(50% - 4px);
+        padding: 10px 8px;
+        font-size: 0.75rem;
+        line-height: 1.2;
+        text-align: center;
+        gap: 5px;
+    }
+    .pillar-btn .material-symbols-outlined {
+        font-size: 1rem;
+    }
+
     .grid-tags {
-        display: flex;
         flex-wrap: wrap;
         justify-content: center;
         gap: 10px;
+    }
+    .pillar-panel {
+        display: none;
+    }
+    .pillar-panel.active {
+        display: flex;
     }
     .tag-item {
         flex: 0 0 calc(50% - 5px);
@@ -485,26 +562,26 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
         justify-content: center;
         text-align: center;
         line-height: 1.2;
+        border-radius: 12px;
     }
-    /* Make the last odd item stretch full width */
     .tag-item:last-child:nth-child(odd) {
         flex: 0 0 100%;
     }
 
-    /* --- 5. CLIENTELE (3 Columns, Hotstar hidden) --- */
-    /* Target Hotstar via its unique URL to hide on mobile */
+    /* --- 5. CLIENTELE (Centered Flex Layout for Mobile) --- */
     a[href="https://www.instagram.com/p/CP5FkD3BcEw/"] {
         display: none !important;
     }
 
     .client-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
         gap: 10px;
     }
     .client-card {
-        flex: unset; 
-        width: 100%;
+        flex: 0 0 calc(50% - 5px);
+        max-width: 180px;
         padding: 15px 5px;
     }
     .client-card span {
@@ -517,7 +594,8 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
         margin-bottom: 5px;
     }
     .fmcg-card {
-        grid-column: span 3;
+        flex: 0 0 100%;
+        max-width: 100%;
         flex-direction: column;
         text-align: center;
     }
@@ -550,18 +628,15 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
         padding: 15px 10px;
     }
     
-    /* Make the final odd card in Part-Time & Achievements fill full width */
     .pt-card:last-child:nth-child(odd),
     .ach-card:last-child:nth-child(odd) {
         flex: 0 0 100%;
     }
     
-    /* Flexible Grids Typography */
     .pt-card h4, .ach-text h4 { font-size: 0.9rem; }
     .pt-comp, .ach-text p { font-size: 0.8rem; }
     .pt-date, .pt-note { font-size: 0.75rem; }
 
-    /* Achievements mobile layout override */
     .ach-card {
         flex-direction: column; 
         justify-content: center;
@@ -584,16 +659,16 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
     }
     .edu-box-card {
         padding: 15px 10px;
-        height: 100%; /* Ensures cards stretch to match the tallest in their row */
+        height: 100%;
         display: flex;
         flex-direction: column;
-        justify-content: center; /* Vertically centers the text content */
+        justify-content: center;
     }
     .edu-box-card h3 { font-size: 0.9rem; }
     .edu-box-card p { font-size: 0.8rem; }
     .edu-year-pill { 
         font-size: 0.75rem; 
         padding: 4px 10px;
-        margin-top: auto; /* Pushes the pill to the bottom of the card for perfect alignment */
+        margin-top: auto;
     }
 }
