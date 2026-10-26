@@ -31,30 +31,34 @@ document.addEventListener('DOMContentLoaded', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // 3. EXPERTISE PILLARS (TAB SWITCHING)
+    // 3. EXPERTISE PILLARS (HOVER & CLICK TAB SWITCHING)
     const pillarBtns = document.querySelectorAll('.pillar-btn');
     const pillarPanels = document.querySelectorAll('.pillar-panel');
 
-    pillarBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const targetId = btn.getAttribute('data-pillar');
+    const activatePillarTab = (btn) => {
+        const targetId = btn.getAttribute('data-pillar');
 
-            pillarBtns.forEach(b => {
-                b.classList.remove('active');
-                b.setAttribute('aria-selected', 'false');
-            });
-            pillarPanels.forEach(panel => {
-                panel.classList.remove('active');
-            });
-
-            btn.classList.add('active');
-            btn.setAttribute('aria-selected', 'true');
-
-            const targetPanel = document.getElementById(targetId);
-            if (targetPanel) {
-                targetPanel.classList.add('active');
-            }
+        pillarBtns.forEach(b => {
+            b.classList.remove('active');
+            b.setAttribute('aria-selected', 'false');
         });
+        pillarPanels.forEach(panel => {
+            panel.classList.remove('active');
+        });
+
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+
+        const targetPanel = document.getElementById(targetId);
+        if (targetPanel) {
+            targetPanel.classList.add('active');
+        }
+    };
+
+    pillarBtns.forEach(btn => {
+        btn.addEventListener('mouseenter', () => activatePillarTab(btn));
+        btn.addEventListener('click', () => activatePillarTab(btn));
+        btn.addEventListener('focus', () => activatePillarTab(btn));
     });
 
     // 4. IMPACT COUNTER

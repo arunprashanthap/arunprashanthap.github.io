@@ -7,6 +7,7 @@
     --blue: #2563EB;       /* Primary Accent */
     --blue-dark: #1E40AF;
     --light-gray: #F3F4F6;
+    --tab-active-bg: #E5E7EB;
     --border: #E5E7EB;
     --font-main: 'DM Sans', sans-serif;
 }
@@ -177,67 +178,119 @@ a { text-decoration: none; color: inherit; transition: 0.3s; }
 .about-img-box img { width: 100%; height: 100%; object-fit: cover; }
 
 /* =========================================
-   6. EXPERTISE (PILLARED) & SOFTWARE SKILLS
+   6. EXPERTISE (HIGHLIGHT TABS) & SOFTWARE SKILLS
    ========================================= */
+.highlight-tabs-card {
+    background: var(--tab-active-bg);
+    border: 1px solid var(--border);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+    border-radius: 4px;
+    overflow: hidden;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
 .pillar-nav {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-    margin-bottom: 35px;
+    width: 100%;
+    margin: 0;
+    gap: 0;
+    background: var(--blue);
+    border-bottom: none;
 }
 
 .pillar-btn {
+    flex: 1;
+    appearance: none;
+    -webkit-appearance: none;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    background: var(--light-gray);
-    border: 1px solid var(--border);
-    color: #333;
-    padding: 12px 22px;
-    border-radius: 8px;
+    background: var(--blue);
+    border: none;
+    border-right: 1px solid rgba(255, 255, 255, 0.25);
+    color: var(--white);
+    padding: 18px 14px;
+    border-radius: 0;
     font-family: var(--font-main);
-    font-size: 0.9rem;
+    font-size: 0.92rem;
     font-weight: 700;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.pillar-btn:last-child {
+    border-right: none;
 }
 
 .pillar-btn .material-symbols-outlined {
     font-size: 1.2rem;
-    color: var(--blue);
-    transition: color 0.3s ease;
+    color: var(--white);
+    transition: color 0.25s ease;
 }
 
-.pillar-btn:hover {
-    border-color: var(--blue);
-    color: var(--blue);
-    transform: translateY(-2px);
-}
-
+/* Highlighted state on Hover or Active (matches reference image) */
+.pillar-btn:hover,
 .pillar-btn.active {
-    background: var(--blue);
-    color: var(--white);
-    border-color: var(--blue);
-    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.25);
+    background: var(--tab-active-bg);
+    color: var(--blue);
 }
 
+.pillar-btn:hover .material-symbols-outlined,
 .pillar-btn.active .material-symbols-outlined {
-    color: var(--white);
+    color: var(--blue);
 }
 
-.grid-tags { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; }
-.pillar-panel { display: none; animation: pillarFade 0.3s ease-out; }
-.pillar-panel.active { display: flex; }
+.pillar-content-box {
+    padding: 40px 30px;
+    background: var(--tab-active-bg);
+    min-height: 190px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.grid-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    width: 100%;
+}
+
+.pillar-panel {
+    display: none !important;
+    animation: pillarFade 0.25s ease-out;
+}
+
+.pillar-panel.active {
+    display: flex !important;
+}
 
 @keyframes pillarFade {
-    from { opacity: 0; transform: translateY(8px); }
+    from { opacity: 0; transform: translateY(6px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-.tag-item { background: white; border: 1px solid var(--border); padding: 12px 24px; font-weight: 600; border-radius: 50px; transition: 0.3s; cursor: default; }
-.tag-item:hover { background: var(--blue); color: white; border-color: var(--blue); transform: translateY(-3px); }
+.tag-item {
+    background: white;
+    border: 1px solid var(--border);
+    padding: 12px 24px;
+    font-weight: 600;
+    border-radius: 50px;
+    transition: 0.3s;
+    cursor: default;
+}
+
+.tag-item:hover {
+    background: var(--blue);
+    color: white;
+    border-color: var(--blue);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
 .blue-highlight { background: white; color: #333; }
 .blue-highlight:hover { background: var(--blue); color: white; }
 
@@ -520,52 +573,100 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
         gap: 5px;
     }
     
-    /* --- 3. SOFTWARE SKILLS (Left Align Text) --- */
+    /* --- 3. SOFTWARE SKILLS (Center Align Text on Mobile) --- */
     .clean-list {
+        text-align: center;
+    }
+
+    /* --- 4. EXPERTISE HIGHLIGHT TABS (4 Categories Left, Simple List Right on Mobile) --- */
+    .highlight-tabs-card {
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
         text-align: left;
     }
 
-    /* --- 4. EXPERTISE PILLARS & TAGS (2 Columns on Mobile) --- */
     .pillar-nav {
-        gap: 8px;
-        margin-bottom: 25px;
+        flex: 0 0 42%;
+        width: 42%;
+        flex-direction: column;
     }
+
     .pillar-btn {
-        flex: 0 0 calc(50% - 4px);
-        padding: 10px 8px;
-        font-size: 0.75rem;
-        line-height: 1.2;
-        text-align: center;
-        gap: 5px;
+        flex: 1;
+        width: 100%;
+        padding: 14px 10px;
+        font-size: 0.78rem;
+        line-height: 1.25;
+        justify-content: flex-start;
+        text-align: left;
+        gap: 8px;
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.25);
     }
+
+    .pillar-btn:last-child {
+        border-bottom: none;
+    }
+
     .pillar-btn .material-symbols-outlined {
-        font-size: 1rem;
+        font-size: 1.1rem;
+        flex-shrink: 0;
+    }
+
+    .pillar-content-box {
+        flex: 1;
+        padding: 16px 16px;
+        align-items: flex-start;
+        justify-content: flex-start;
+        min-height: auto;
     }
 
     .grid-tags {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 0;
     }
+
     .pillar-panel {
-        display: none;
+        display: none !important;
     }
+
     .pillar-panel.active {
-        display: flex;
+        display: flex !important;
     }
-    .tag-item {
-        flex: 0 0 calc(50% - 5px);
-        padding: 10px;
-        font-size: 0.8rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        line-height: 1.2;
-        border-radius: 12px;
-    }
+
+    /* Simple list items on mobile (no buttons/pills) */
+    .tag-item,
     .tag-item:last-child:nth-child(odd) {
-        flex: 0 0 100%;
+        flex: none;
+        width: 100%;
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 0;
+        padding: 8px 0;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--black);
+        display: block;
+        text-align: left;
+        line-height: 1.35;
+        box-shadow: none;
+        transform: none;
+    }
+
+    .tag-item:last-child {
+        border-bottom: none !important;
+    }
+
+    .tag-item:hover {
+        background: transparent;
+        color: var(--blue);
+        border-color: rgba(0, 0, 0, 0.08);
+        transform: none;
+        box-shadow: none;
     }
 
     /* --- 5. CLIENTELE (Centered Flex Layout for Mobile) --- */
