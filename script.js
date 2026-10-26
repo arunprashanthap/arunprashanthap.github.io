@@ -158,3 +158,121 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+// 8. NAVIGATION SECTION PREVIEWS
+// Static previews of the destination sections. Every preview is itself a link to the same section.
+document.addEventListener('DOMContentLoaded', () => {
+    const navItems = Array.from(document.querySelectorAll('.nav-links > li'));
+
+    navItems.forEach(item => {
+        item.addEventListener('mouseleave', () => item.classList.remove('preview-suppressed'));
+    });
+
+    document.querySelectorAll('.nav-links a[data-nav-preview]').forEach(navLink => {
+        const targetId = navLink.getAttribute('data-nav-preview');
+        const targetSection = document.getElementById(targetId);
+        const parentItem = navLink.closest('li');
+        if (!targetSection || !parentItem) return;
+        if (targetId === 'contact') parentItem.classList.add('nav-preview-connect');
+
+        navLink.addEventListener('mouseenter', () => {
+            navItems.forEach(item => item.classList.remove('preview-suppressed'));
+        });
+
+        const previewLink = document.createElement('a');
+        previewLink.className = 'nav-preview-link';
+        previewLink.href = navLink.getAttribute('href');
+        previewLink.setAttribute('aria-label', `${navLink.textContent.trim()} preview`);
+
+        const stage = document.createElement('div');
+        stage.className = 'nav-preview-stage';
+
+        const preview = targetSection.cloneNode(true);
+        preview.className = `nav-preview-content ${targetSection.className}`;
+        preview.removeAttribute('id');
+        preview.setAttribute('aria-hidden', 'true');
+        preview.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
+        preview.querySelectorAll('script, style').forEach(el => el.remove());
+
+        // Convert every interactive element inside the cloned section into a static visual element.
+        preview.querySelectorAll('button, input, select, textarea').forEach(el => {
+            const staticEl = document.createElement('div');
+            staticEl.className = el.className;
+            staticEl.innerHTML = el.innerHTML;
+            el.replaceWith(staticEl);
+        });
+        preview.querySelectorAll('a').forEach(el => {
+            const staticEl = document.createElement('span');
+            staticEl.className = el.className;
+            staticEl.innerHTML = el.innerHTML;
+            el.replaceWith(staticEl);
+        });
+
+        // Expertise is permanently frozen to its default first pillar.
+        if (targetId === 'expertise') {
+            preview.querySelectorAll('.pillar-panel').forEach((panel, index) => {
+                panel.classList.toggle('active', index === 0);
+                panel.style.display = index === 0 ? '' : 'none';
+            });
+            preview.querySelectorAll('.pillar-btn').forEach((btn, index) => {
+                btn.classList.toggle('active', index === 0);
+                btn.setAttribute('aria-selected', index === 0 ? 'true' : 'false');
+                btn.removeAttribute('data-pillar');
+            });
+        }
+
+        // About uses a controlled canvas so the full image and both paragraphs remain visible.
+        if (targetId === 'about') {
+            preview.classList.add('preview-static-about');
+        }
+
+        // Impact uses a controlled four column canvas matching the live section.
+        if (targetId === 'impact') {
+            preview.classList.add('preview-static-impact');
+        }
+
+        stage.appendChild(preview);
+        previewLink.appendChild(stage);
+        parentItem.appendChild(previewLink);
+
+        const fitPreview = () => {
+            const stageWidth = stage.clientWidth;
+            const stageHeight = stage.clientHeight;
+            if (!stageWidth || !stageHeight) return;
+
+            const targetWidth = 1200;
+            let targetHeight = targetSection.getBoundingClientRect().height;
+            if (targetId === 'about') targetHeight = Math.max(targetHeight, 504) + 120;
+            if (targetId === 'impact') targetHeight = 430;
+            if (targetId === 'expertise') targetHeight = 600;
+            if (targetId === 'credentials') targetHeight = 500;
+            if (targetId === 'clientele') targetHeight = 520;
+            if (targetId === 'experience') targetHeight = Math.max(targetHeight, 650);
+            if (targetId === 'contact') targetHeight = Math.max(targetHeight, 420);
+
+            preview.style.width = `${targetWidth}px`;
+            preview.style.height = `${targetHeight}px`;
+            preview.style.minHeight = `${targetHeight}px`;
+            preview.style.maxHeight = `${targetHeight}px`;
+
+            const scale = Math.min((stageWidth - 6) / targetWidth, (stageHeight - 6) / targetHeight);
+            preview.style.transform = `scale(${scale})`;
+            preview.style.left = `${(stageWidth - targetWidth * scale) / 2}px`;
+            if (targetId === 'about') {
+                preview.style.top = `${(stageHeight - targetHeight * scale) / 2}px`;
+            } else {
+                preview.style.top = `${(stageHeight - targetHeight * scale) / 2}px`;
+            }
+        };
+
+        previewLink.addEventListener('click', () => {
+            parentItem.classList.add('preview-suppressed');
+        });
+
+        navLink.addEventListener('click', () => {
+            parentItem.classList.add('preview-suppressed');
+        });
+
+        requestAnimationFrame(() => requestAnimationFrame(fitPreview));
+        window.addEventListener('resize', fitPreview);
+    });
+});

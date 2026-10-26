@@ -73,8 +73,8 @@ a { text-decoration: none; color: inherit; transition: 0.3s; }
 .nav-links { display: flex; gap: 25px; list-style: none; align-items: center; }
 .nav-links a { font-weight: 700; font-size: 0.85rem; text-transform: uppercase; color: #555; white-space: nowrap; }
 .nav-links a:hover { color: var(--blue); }
-.nav-connect { color: var(--blue) !important; border: 1px solid var(--blue); padding: 8px 15px; border-radius: 4px; }
-.nav-connect:hover { background: var(--blue); color: white !important; }
+.nav-connect { color: white !important; background: var(--black); border: 1px solid var(--black); padding: 8px 15px; border-radius: 4px; }
+.nav-connect:hover { background: white; color: var(--blue) !important; border-color: var(--blue); }
 
 /* Dropdown */
 .dropdown { position: relative; cursor: pointer; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; color: #555; display: flex; align-items: center; }
@@ -87,6 +87,423 @@ a { text-decoration: none; color: inherit; transition: 0.3s; }
 /* Hamburger */
 .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
 .bar { width: 25px; height: 3px; background: var(--black); transition: 0.3s; }
+
+
+/* =========================================
+   NAV HOVER SECTION PREVIEWS
+   ========================================= */
+.nav-links > li { position: relative; display: flex; align-items: center; }
+
+.nav-preview-link {
+    position: absolute;
+    top: calc(100% + 1px);
+    left: 50%;
+    width: 430px;
+    height: 230px;
+    transform: translateX(-50%) translateY(-4px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: auto;
+    z-index: 1200;
+    padding: 8px;
+    border: 1px solid rgba(255,255,255,0.82);
+    border-radius: 16px;
+    background: rgba(255,255,255,0.32);
+    box-shadow: 0 20px 45px rgba(17,17,17,0.18);
+    backdrop-filter: blur(18px) saturate(125%);
+    -webkit-backdrop-filter: blur(18px) saturate(125%);
+    transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease;
+    overflow: hidden;
+    box-sizing: border-box;
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav-preview-link::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.42), rgba(37,99,235,0.08) 55%, rgba(243,244,246,0.24));
+    pointer-events: none;
+    z-index: 0;
+}
+
+.nav-preview-link::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    transform: translateX(-50%) rotate(45deg);
+    background: rgba(255,255,255,0.42);
+    border-left: 1px solid rgba(255,255,255,0.72);
+    border-top: 1px solid rgba(255,255,255,0.72);
+    backdrop-filter: blur(12px);
+}
+
+.nav-preview-stage {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 11px;
+    background: rgba(255,255,255,0.08);
+}
+
+.nav-preview-content {
+    position: absolute !important;
+    left: 0;
+    top: 0;
+    width: 1200px !important;
+    max-width: 1200px !important;
+    min-height: 0 !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 60px 0 !important;
+    transform-origin: top left;
+    background: transparent !important;
+    color: var(--black);
+    box-sizing: border-box;
+}
+
+.nav-preview-content * {
+    animation: none !important;
+    transition: none !important;
+    box-sizing: border-box;
+    pointer-events: none !important;
+    cursor: default !important;
+}
+
+.nav-preview-content .container {
+    width: 100% !important;
+    max-width: 1200px !important;
+    padding: 0 20px !important;
+    margin: 0 auto !important;
+}
+
+.nav-preview-content .section-header {
+    margin-bottom: 40px !important;
+    text-align: center !important;
+}
+
+.nav-preview-content .section-header h2,
+.nav-preview-content h2,
+.nav-preview-content h3,
+.nav-preview-content h4,
+.nav-preview-content p,
+.nav-preview-content .category-title {
+    text-align: center !important;
+}
+
+/* ABOUT: dedicated scaled canvas. The live photo and text stay together as one centered group. */
+.nav-preview-content.preview-static-about {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 1200px !important;
+    max-width: 1200px !important;
+    height: 504px !important;
+    min-height: 504px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    overflow: visible !important;
+    box-sizing: border-box !important;
+}
+
+.nav-preview-content.preview-static-about::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 120px;
+    bottom: 0;
+    background: var(--light-gray);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.nav-preview-content.preview-static-about > .container {
+    position: relative !important;
+    width: 1200px !important;
+    max-width: 1200px !important;
+    height: 504px !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    z-index: 1 !important;
+}
+
+.nav-preview-content.preview-static-about .about-grid-compact {
+    position: relative !important;
+    display: flex !important;
+    align-items: flex-end !important;
+    justify-content: center !important;
+    gap: 30px !important;
+    width: 1180px !important;
+    height: 504px !important;
+    margin: 0 auto !important;
+}
+
+.nav-preview-content.preview-static-about .pop-out-img {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+    flex: 0 0 350px !important;
+    width: 350px !important;
+    height: auto !important;
+    margin: 0 !important;
+    margin-top: -120px !important;
+    padding: 0 !important;
+    z-index: 2 !important;
+    line-height: 0 !important;
+    background: transparent !important;
+}
+
+.nav-preview-content.preview-static-about .pop-out-img img {
+    display: block !important;
+    width: 350px !important;
+    height: auto !important;
+    margin: 0 !important;
+    object-fit: contain !important;
+}
+
+.nav-preview-content.preview-static-about .about-txt {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    flex: 0 0 800px !important;
+    width: 800px !important;
+    max-width: 800px !important;
+    margin: 0 !important;
+    padding: 30px 0 !important;
+    font-size: 1.05rem !important;
+    line-height: 1.6 !important;
+    text-align: left !important;
+    align-self: flex-end !important;
+    z-index: 2 !important;
+    box-sizing: border-box !important;
+}
+
+.nav-preview-content.preview-static-about .about-txt h2 {
+    margin: 0 0 10px !important;
+    font-size: 2rem !important;
+    line-height: 1.2 !important;
+    text-align: left !important;
+}
+
+.nav-preview-content.preview-static-about .about-txt p {
+    margin: 0 0 10px !important;
+    font-size: 1.05rem !important;
+    line-height: 1.6 !important;
+    color: #4B5563 !important;
+    text-align: left !important;
+    white-space: normal !important;
+    overflow-wrap: normal !important;
+    word-break: normal !important;
+    max-width: 800px !important;
+}
+
+/* IMPACT: preserve the live blue section with a fixed four column layout. */
+.nav-preview-content.impact-section {
+    width: 1200px !important;
+    max-width: 1200px !important;
+    margin: 0 !important;
+    padding: 60px 0 !important;
+    min-height: 430px !important;
+    height: 430px !important;
+    background: var(--blue) !important;
+    color: #fff !important;
+    text-align: center !important;
+    overflow: hidden !important;
+}
+
+.nav-preview-content.impact-section .impact-grid,
+.nav-preview-content.impact-section .impact-box {
+    background: transparent !important;
+    color: #fff !important;
+}
+
+.nav-preview-content.impact-section .impact-box {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 0 !important;
+}
+
+.nav-preview-content.impact-section .impact-num,
+.nav-preview-content.impact-section .impact-lbl {
+    color: #fff !important;
+    white-space: nowrap !important;
+}
+
+.nav-preview-content .impact-title,
+.nav-preview-content .impact-num,
+.nav-preview-content .impact-lbl,
+.nav-preview-content .market-row,
+.nav-preview-content .market-text,
+.nav-preview-content .map-icon {
+    color: #fff !important;
+}
+
+.nav-preview-content .impact-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 30px !important;
+    align-items: center !important;
+}
+
+.nav-preview-content .market-row {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+}
+
+/* CREDENTIALS: preserve the real carousel card geometry and force all card text to wrap inside its card. */
+.nav-preview-content .carousel-wrapper {
+    max-width: 1100px !important;
+    margin: 0 auto !important;
+}
+
+.nav-preview-content .carousel-container {
+    overflow: hidden !important;
+}
+
+.nav-preview-content .carousel-track {
+    justify-content: flex-start !important;
+    align-items: stretch !important;
+}
+
+.nav-preview-content .small-card {
+    flex: 0 0 260px !important;
+    width: 260px !important;
+    min-width: 260px !important;
+    max-width: 260px !important;
+    overflow: hidden !important;
+    overflow-wrap: anywhere !important;
+    word-break: normal !important;
+    white-space: normal !important;
+}
+
+.nav-preview-content .cert-title,
+.nav-preview-content .prov,
+.nav-preview-content .year,
+.nav-preview-content .link {
+    max-width: 100% !important;
+    overflow-wrap: anywhere !important;
+    word-break: normal !important;
+    white-space: normal !important;
+    text-align: center !important;
+}
+
+/* CLIENTELE: preserve the live card dimensions and keep the descriptive FMCG copy inside its card. */
+.nav-preview-content .client-grid {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    justify-content: center !important;
+    align-items: stretch !important;
+}
+
+.nav-preview-content .client-card {
+    overflow: hidden !important;
+    overflow-wrap: anywhere !important;
+    white-space: normal !important;
+}
+
+.nav-preview-content .fmcg-card {
+    flex: 0 0 380px !important;
+    width: 380px !important;
+    max-width: 380px !important;
+    justify-content: center !important;
+    text-align: center !important;
+}
+
+.nav-preview-content .fmcg-text {
+    min-width: 0 !important;
+    flex: 1 1 auto !important;
+    overflow-wrap: anywhere !important;
+    white-space: normal !important;
+    text-align: center !important;
+}
+
+.nav-preview-content .fmcg-text strong,
+.nav-preview-content .fmcg-text span {
+    max-width: 100% !important;
+    overflow-wrap: anywhere !important;
+    white-space: normal !important;
+    text-align: center !important;
+}
+
+.nav-preview-content .fmcg-text span {
+    display: block !important;
+}
+
+.nav-preview-content .bg-light,
+.nav-preview-content .highlight-tabs-card,
+.nav-preview-content .pillar-content-box,
+.nav-preview-content .acc-item,
+.nav-preview-content .client-card,
+.nav-preview-content .contact-card-wrapper,
+.nav-preview-content .pt-card,
+.nav-preview-content .ach-card,
+.nav-preview-content .edu-box-card {
+    background: rgba(255,255,255,0.58) !important;
+}
+
+.nav-preview-content .pillar-nav,
+.nav-preview-content .pillar-btn {
+    background: rgba(37,99,235,0.72) !important;
+}
+
+.nav-preview-content .pillar-btn.active {
+    background: rgba(229,231,235,0.72) !important;
+}
+
+.nav-preview-content .pillar-btn:hover {
+    background: inherit !important;
+    color: inherit !important;
+}
+
+.nav-preview-content .tag-item {
+    background: rgba(255,255,255,0.58) !important;
+}
+
+.nav-links > li.preview-suppressed .nav-preview-link {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transform: translateX(-50%) translateY(-8px) !important;
+}
+
+.nav-links > li:hover .nav-preview-link,
+.nav-links > li:focus-within .nav-preview-link {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+}
+
+.nav-preview-link:hover {
+    background: rgba(255,255,255,0.38);
+    cursor: pointer;
+}
+
+.nav-preview-link::before,
+.nav-preview-link::after {
+    pointer-events: none;
+}
+
+@media (max-width: 1024px) {
+    .nav-preview-link { display: none !important; }
+}
+
+@media (max-width: 768px) {
+    .nav-preview-link { display: none !important; }
+}
 
 /* =========================================
    4. HERO SECTION
@@ -772,4 +1189,26 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
         padding: 4px 10px;
         margin-top: auto;
     }
+}
+/* CONNECT: keep the button vertically centered with the other nav labels. */
+.nav-links > li.nav-preview-connect {
+    position: relative;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+}
+
+/* The Connect preview begins below the full button, never over it. */
+.nav-links > li.nav-preview-connect .nav-preview-link {
+    top: calc(100% + 8px);
+}
+
+/* Preserve a small hover bridge between the button and its preview. */
+.nav-links > li.nav-preview-connect::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    height: 12px;
 }
