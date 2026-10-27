@@ -509,26 +509,110 @@ a { text-decoration: none; color: inherit; transition: 0.3s; }
 }
 
 /* =========================================
-   4. HERO SECTION
+   4. HERO SECTION (1920x600 Banner + Left Text Safe Zone)
    ========================================= */
 .hero-section { 
-    padding: 160px 0 60px; 
-    text-align: center; 
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-}
-.name-title { font-size: 3.5rem; line-height: 1.1; margin-bottom: 20px; text-transform: uppercase; }
-.tagline { 
-    font-size: 1.5rem; color: #333; margin-bottom: 15px; font-weight: 700; 
-    max-width: 900px; margin-left: auto; margin-right: auto; line-height: 1.4;
-}
-.cred-line { 
-    color: var(--blue); font-weight: 600; text-transform: uppercase; 
-    letter-spacing: 1px; font-size: 0.9rem; margin-bottom: 30px; 
+    padding: 66px 0 40px; 
+    background: var(--white);
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center;
+    width: 100%;
 }
 
-/* Portfolio Deck (Hero) */
+/* 1920x600 Banner Container */
+.hero-banner-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1920 / 600;
+    overflow: hidden;
+    background: var(--white);
+}
+
+/* Banner Image with Mild Hover Zoom */
+.hero-banner-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: right center;
+    transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    transform-origin: center center;
+    will-change: transform;
+}
+
+.hero-banner-wrapper:hover .hero-banner-img {
+    transform: scale(1.035);
+}
+
+/* Overlay positioning the text inside the left 54% white space of the banner */
+.hero-banner-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.hero-banner-inner {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+}
+
+/* Left 54% safe zone so text never touches the floating phone/icons on the right */
+.hero-text-box {
+    width: 54%;
+    max-width: 54%;
+    text-align: left;
+    pointer-events: auto;
+    padding-right: 10px;
+}
+
+/* Prevent orphan words: keep each skill phrase together on a single line */
+.nowrap-phrase {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.name-title { 
+    font-size: clamp(2.2rem, 3.6vw, 3.5rem); 
+    line-height: 1.08; 
+    margin-bottom: clamp(10px, 1.4vw, 18px); 
+    text-transform: uppercase; 
+    white-space: nowrap;
+}
+
+.tagline { 
+    font-size: clamp(1rem, 1.4vw, 1.45rem); 
+    color: #111; 
+    margin-bottom: clamp(10px, 1.3vw, 16px); 
+    font-weight: 700; 
+    line-height: 1.45;
+    margin-left: 0;
+    margin-right: 0;
+    max-width: 100%;
+}
+
+.cred-line { 
+    color: var(--blue); 
+    font-weight: 600; 
+    letter-spacing: 0.3px; 
+    font-size: clamp(0.78rem, 1.02vw, 1.02rem); 
+    line-height: 1.55;
+    margin-bottom: 0; 
+}
+
+/* Portfolio Deck (Always below the banner container) */
+.hero-cta-container {
+    margin-top: 22px;
+}
 .hero-cta-block { display: flex; flex-direction: column; align-items: center; width: 100%; }
-.portfolio-deck { display: flex; gap: 15px; align-items: center; justify-content: center; margin-top: 10px; flex-wrap: wrap; }
+.portfolio-deck { display: flex; gap: 15px; align-items: center; justify-content: center; flex-wrap: wrap; }
 .deck-label { font-weight: 700; color: #555; font-size: 0.9rem; margin-right: 10px; }
 .deck-card { 
     display: flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.9);
@@ -946,12 +1030,16 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
 #backToTop:hover { background-color: #555; }
 
 /* =========================================
-   14. MEDIA QUERIES (Mobile Adjustments)
+   14. MEDIA QUERIES (Tablet & Mobile Adjustments)
    ========================================= */
 @media (max-width: 1024px) {
     .nav-links { display: none; }
     .hamburger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; }
     .nav-links.active { display: flex; flex-direction: column; position: absolute; top: 70px; left: 0; width: 100%; background: white; padding: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+
+    .name-title { font-size: clamp(1.45rem, 3.5vw, 2.3rem); margin-bottom: 6px; }
+    .tagline { font-size: clamp(0.75rem, 1.45vw, 1.05rem); margin-bottom: 6px; line-height: 1.3; }
+    .cred-line { font-size: clamp(0.62rem, 1.1vw, 0.82rem); line-height: 1.35; }
 }
 
 @media (max-width: 900px) {
@@ -978,9 +1066,47 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
 }
 
 @media (max-width: 768px) {
-    .name-title { font-size: 2.5rem; }
-    .tagline { font-size: 1.2rem; }
-    .cred-line { font-size: 0.8rem; }
+    .hero-section {
+        padding: 58px 0 30px;
+    }
+
+    .hero-banner-inner {
+        padding: 0 10px;
+    }
+
+    /* Keep text strictly in the left 54% white zone of the same banner.png */
+    .hero-text-box {
+        width: 54%;
+        max-width: 54%;
+        padding-right: 4px;
+    }
+
+    /* ARUN PRASHANTH never breaks into 2 lines on mobile */
+    .name-title { 
+        font-size: clamp(0.92rem, 4.1vw, 1.55rem); 
+        white-space: nowrap;
+        letter-spacing: -0.3px;
+        margin-bottom: 3px;
+        line-height: 1.05;
+    }
+
+    /* Adjusted font sizes for readability while staying inside the left 54% safe zone */
+    .tagline { 
+        font-size: clamp(0.5rem, 2.05vw, 0.82rem); 
+        line-height: 1.22;
+        margin-bottom: 3px;
+    }
+
+    .cred-line { 
+        font-size: clamp(0.42rem, 1.65vw, 0.68rem); 
+        line-height: 1.25;
+        letter-spacing: 0;
+    }
+
+    .hero-cta-container {
+        margin-top: 14px;
+    }
+
     .social-row-center { flex-direction: column; }
     .mini-contact-row { flex-direction: column; gap: 15px; }
 
