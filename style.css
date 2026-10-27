@@ -1075,12 +1075,14 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
         display: none !important;
     }
 
-    /* Keep text strictly in the left 54% white zone of the banner */
-    .hero-text-box {
-        width: 54%;
-        max-width: 54%;
-        padding-right: 4px;
-    }
+	/* Keep text strictly in the left 54% white zone of the banner and vertically centered */
+		.hero-text-box {
+			width: 54%;
+			max-width: 54%;
+			padding-right: 4px;
+			margin-top: auto;
+			margin-bottom: auto;
+		}
 
     /* Scale up and style the 2 lines nicely matching desired_layout.jpg */
     .tagline { 
