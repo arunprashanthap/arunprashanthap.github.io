@@ -1,5 +1,23 @@
+// 0. EXACT HD-TO-4K PROPORTIONAL SCALER (Zero Side Gaps)
+// Scales the 1200px HD layout + 20px side padding (1240px base) edge-to-edge on any screen > 1240px
+const applyHDTo4KScale = () => {
+    const baseHDWidth = 1240; 
+    const viewportWidth = document.documentElement.clientWidth || window.innerWidth;
+
+    if (viewportWidth > baseHDWidth) {
+        const scaleFactor = viewportWidth / baseHDWidth;
+        document.documentElement.style.zoom = scaleFactor;
+    } else {
+        document.documentElement.style.zoom = 1;
+    }
+};
+
+applyHDTo4KScale();
+window.addEventListener('resize', applyHDTo4KScale);
+
 document.addEventListener('DOMContentLoaded', () => {
-    
+    applyHDTo4KScale();
+
     // 1. SCROLL REVEAL
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -118,13 +136,19 @@ document.addEventListener('DOMContentLoaded', () => {
     if (track && cards.length > 0 && prev && next) {
         let index = 0;
 
+        const getStepWidth = () => {
+            const trackStyle = window.getComputedStyle(track);
+            const gap = parseFloat(trackStyle.gap || trackStyle.columnGap) || 20;
+            return cards[0].offsetWidth + gap;
+        };
+
         const updateCarousel = () => {
-            const cardWidth = cards[0].offsetWidth + 20;
+            const cardWidth = getStepWidth();
             track.style.transform = `translateX(-${index * cardWidth}px)`;
         };
 
         next.addEventListener('click', () => {
-            const cardWidth = cards[0].offsetWidth + 20;
+            const cardWidth = getStepWidth();
             const visible = Math.max(1, Math.floor(track.parentElement.offsetWidth / cardWidth));
             if (index < cards.length - visible) {
                 index++;
@@ -158,6 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
 // 8. NAVIGATION SECTION PREVIEWS
 // Static previews of the destination sections. Every preview is itself a link to the same section.
 document.addEventListener('DOMContentLoaded', () => {
@@ -240,14 +265,15 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!stageWidth || !stageHeight) return;
 
             const targetWidth = 1200;
-            let targetHeight = targetSection.getBoundingClientRect().height;
-            if (targetId === 'about') targetHeight = Math.max(targetHeight, 504) + 120;
+            let sectionHeight = targetSection.offsetHeight || targetSection.getBoundingClientRect().height;
+            let targetHeight = sectionHeight;
+            if (targetId === 'about') targetHeight = Math.max(sectionHeight, 504) + 120;
             if (targetId === 'impact') targetHeight = 430;
             if (targetId === 'expertise') targetHeight = 600;
             if (targetId === 'credentials') targetHeight = 500;
             if (targetId === 'clientele') targetHeight = 520;
-            if (targetId === 'experience') targetHeight = Math.max(targetHeight, 650);
-            if (targetId === 'contact') targetHeight = Math.max(targetHeight, 420);
+            if (targetId === 'experience') targetHeight = Math.max(sectionHeight, 650);
+            if (targetId === 'contact') targetHeight = Math.max(sectionHeight, 420);
 
             preview.style.width = `${targetWidth}px`;
             preview.style.height = `${targetHeight}px`;
@@ -257,11 +283,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const scale = Math.min((stageWidth - 6) / targetWidth, (stageHeight - 6) / targetHeight);
             preview.style.transform = `scale(${scale})`;
             preview.style.left = `${(stageWidth - targetWidth * scale) / 2}px`;
-            if (targetId === 'about') {
-                preview.style.top = `${(stageHeight - targetHeight * scale) / 2}px`;
-            } else {
-                preview.style.top = `${(stageHeight - targetHeight * scale) / 2}px`;
-            }
+            preview.style.top = `${(stageHeight - targetHeight * scale) / 2}px`;
         };
 
         previewLink.addEventListener('click', () => {
