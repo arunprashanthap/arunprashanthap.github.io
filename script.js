@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('videoModal');
     const closeBtn = document.getElementById('closeVideoModal');
     const vimeoIframe = document.getElementById('vimeoPlayer');
-    const videoUrl = "https://player.vimeo.com/video/1242235565?autoplay=1";
+    const videoUrl = "https://player.vimeo.com/video/1242235565?autoplay=1&muted=0";
 
     const openModal = () => {
         if (!modal || !vimeoIframe) return;
