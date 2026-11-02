@@ -200,7 +200,7 @@ a { text-decoration: none; color: inherit; transition: 0.3s; }
     text-align: center !important;
 }
 
-/* ABOUT: dedicated scaled canvas. The live photo and text stay together as one centered group. */
+/* ABOUT: dedicated scaled canvas */
 .nav-preview-content.preview-static-about {
     position: absolute !important;
     left: 0 !important;
@@ -309,7 +309,7 @@ a { text-decoration: none; color: inherit; transition: 0.3s; }
     max-width: 800px !important;
 }
 
-/* IMPACT: preserve the live blue section with a fixed four column layout. */
+/* IMPACT */
 .nav-preview-content.impact-section {
     width: 1200px !important;
     max-width: 1200px !important;
@@ -366,7 +366,7 @@ a { text-decoration: none; color: inherit; transition: 0.3s; }
     width: 100% !important;
 }
 
-/* CREDENTIALS: preserve the real carousel card geometry and force all card text to wrap inside its card. */
+/* CREDENTIALS */
 .nav-preview-content .carousel-wrapper {
     max-width: 1100px !important;
     margin: 0 auto !important;
@@ -403,7 +403,7 @@ a { text-decoration: none; color: inherit; transition: 0.3s; }
     text-align: center !important;
 }
 
-/* CLIENTELE: preserve the live card dimensions and keep the descriptive FMCG copy inside its card. */
+/* CLIENTELE */
 .nav-preview-content .client-grid {
     margin-left: auto !important;
     margin-right: auto !important;
@@ -573,7 +573,7 @@ a { text-decoration: none; color: inherit; transition: 0.3s; }
     padding-right: 10px;
 }
 
-/* Prevent orphan words: keep each skill phrase together on a single line */
+/* Prevent orphan words */
 .nowrap-phrase {
     display: inline-block;
     white-space: nowrap;
@@ -615,12 +615,31 @@ a { text-decoration: none; color: inherit; transition: 0.3s; }
 .portfolio-deck { display: flex; gap: 15px; align-items: center; justify-content: center; flex-wrap: wrap; }
 .deck-label { font-weight: 700; color: #555; font-size: 0.9rem; margin-right: 10px; }
 .deck-card { 
-    display: flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.9);
+    display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.9);
     border: 1px solid #ccc; color: #555; padding: 8px 15px;
     border-radius: 4px; font-size: 0.85rem; font-weight: 700;
     transition: 0.3s; backdrop-filter: blur(5px); text-decoration: none;
+    cursor: pointer;
+    line-height: normal;
 }
-.deck-card:hover { background: var(--blue); color: white; border-color: var(--blue); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2); }
+.deck-card:hover { 
+    background: var(--blue); 
+    color: white; 
+    border-color: var(--blue); 
+    transform: translateY(-2px); 
+    box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2); 
+}
+
+/* Meta-style Verified Badge Icon in Prashanth Blue */
+.verified-badge {
+    color: var(--blue);
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+}
+
+.deck-card:hover .verified-badge {
+    color: #ffffff;
+}
 
 /* =========================================
    5. ABOUT ME
@@ -734,7 +753,6 @@ a { text-decoration: none; color: inherit; transition: 0.3s; }
     transition: color 0.25s ease;
 }
 
-/* Highlighted state on Hover or Active (matches reference image) */
 .pillar-btn:hover,
 .pillar-btn.active {
     background: var(--tab-active-bg);
@@ -798,7 +816,7 @@ a { text-decoration: none; color: inherit; transition: 0.3s; }
 .blue-highlight { background: white; color: #333; }
 .blue-highlight:hover { background: var(--blue); color: white; }
 
-/* SOFTWARE SKILLS: Centered Flexbox layout so wrapped columns always center */
+/* SOFTWARE SKILLS */
 .skills-layout { 
     display: flex; 
     flex-wrap: wrap; 
@@ -870,7 +888,7 @@ a { text-decoration: none; color: inherit; transition: 0.3s; }
 .carousel-btn.right { right: 0; }
 
 /* =========================================
-   10. FLEX/GRID COMPONENTS (Unified)
+   10. FLEX/GRID COMPONENTS
    ========================================= */
 .flexible-grid { 
     display: flex; 
@@ -924,7 +942,7 @@ a { text-decoration: none; color: inherit; transition: 0.3s; }
 .fmcg-card { flex: 0 0 380px; max-width: 100%; background: #f0f8ff; flex-direction: row; gap: 20px; text-align: left; }
 .fmcg-icon { font-size: 2.5rem; color: var(--blue); }
 
-/* EDUCATION: Centered Flexbox layout so wrapped cards always center like Part-Time & Internships */
+/* EDUCATION */
 .education-gap { margin-bottom: 100px; }
 .education-grid { 
     display: flex; 
@@ -971,7 +989,7 @@ a { text-decoration: none; color: inherit; transition: 0.3s; }
 .resume-btn { background: #333; }
 
 /* =========================================
-   13. FOOTER & MINI CONTACT (Shared)
+   13. FOOTER & MINI CONTACT
    ========================================= */
 .mini-contact-section {
     padding: 40px 0;
@@ -1030,7 +1048,86 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
 #backToTop:hover { background-color: #555; }
 
 /* =========================================
-   14. MEDIA QUERIES (Tablet & Mobile Adjustments)
+   14. VIMEO VIDEO OVERLAY MODAL (Zoom-Proof Fix)
+   ========================================= */
+.video-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;            /* Replaces 100vw to prevent double-scaling */
+    height: 100%;           /* Replaces 100vh to prevent double-scaling */
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    padding: 40px 20px;
+    box-sizing: border-box;
+}
+
+.video-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.video-modal-container {
+    position: relative;
+    width: 100%;
+    max-width: 780px;       /* Perfectly sized within your 1240px base grid */
+    background: #000;
+    border-radius: 12px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+    transform: scale(0.95);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.video-modal-overlay.active .video-modal-container {
+    transform: scale(1);
+}
+
+.video-modal-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.video-modal-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.video-modal-close {
+    position: absolute;
+    top: -38px;
+    right: 0;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 2.2rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.video-modal-close:hover {
+    color: var(--blue);
+    transform: scale(1.15);
+}
+
+/* =========================================
+   15. MEDIA QUERIES
    ========================================= */
 @media (max-width: 1024px) {
     .nav-links { display: none; }
@@ -1070,21 +1167,18 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
         padding: 0 10px;
     }
 
-    /* Hide the name title above the tagline on mobile */
     .hero-text-box .name-title {
         display: none !important;
     }
 
-	/* Keep text strictly in the left 54% white zone of the banner and vertically centered */
-		.hero-text-box {
-			width: 54%;
-			max-width: 54%;
-			padding-right: 4px;
-			margin-top: auto;
-			margin-bottom: auto;
-		}
+    .hero-text-box {
+        width: 54%;
+        max-width: 54%;
+        padding-right: 4px;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
 
-    /* Scale up and style the 2 lines nicely matching desired_layout.jpg */
     .tagline { 
         font-size: clamp(0.68rem, 2.6vw, 0.96rem); 
         line-height: 1.35;
@@ -1105,7 +1199,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
     .social-row-center { flex-direction: column; }
     .mini-contact-row { flex-direction: column; gap: 15px; }
 
-    /* --- 1. HERO CTA / VIEW WORK (2 Columns) --- */
+    /* VIEW WORK 2 Columns */
     .hero-cta-block .portfolio-deck { 
         display: flex;
         flex-wrap: wrap;
@@ -1126,7 +1220,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
         font-size: 0.75rem;
     }
 
-    /* --- 2. IMPACT SECTION (2 Columns) --- */
+    /* IMPACT SECTION */
     .impact-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 15px;
@@ -1143,7 +1237,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
         gap: 5px;
     }
     
-    /* --- 3. SOFTWARE SKILLS (Center Align Text on Mobile) --- */
+    /* SOFTWARE SKILLS */
     .clean-list {
         text-align: center;
     }
@@ -1152,7 +1246,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
         max-width: 100%;
     }
 
-    /* --- 4. EXPERTISE HIGHLIGHT TABS (4 Categories Left, Simple List Right on Mobile) --- */
+    /* EXPERTISE TABS */
     .highlight-tabs-card {
         display: flex;
         flex-direction: row;
@@ -1211,7 +1305,6 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
         display: flex !important;
     }
 
-    /* Simple list items on mobile (no buttons/pills) */
     .tag-item,
     .tag-item:last-child:nth-child(odd) {
         flex: none;
@@ -1243,7 +1336,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
         box-shadow: none;
     }
 
-    /* --- 5. CLIENTELE (Centered Flex Layout for Mobile) --- */
+    /* CLIENTELE */
     a[href="https://www.instagram.com/p/CP5FkD3BcEw/"] {
         display: none !important;
     }
@@ -1275,7 +1368,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
         text-align: center;
     }
 
-    /* --- 6. EXPERIENCE ACCORDION (Date & Plus Button Fix) --- */
+    /* EXPERIENCE ACCORDION */
     .acc-title-group {
         flex: 1 1 100%;
         margin-bottom: 10px;
@@ -1289,7 +1382,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
         min-width: auto;
     }
 
-    /* --- 7. FLEXIBLE GRIDS (Part-Time, Achievements) --- */
+    /* FLEXIBLE GRIDS */
     .flexible-grid {
         display: flex;
         flex-wrap: wrap;
@@ -1326,7 +1419,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
     }
     .ach-text h4 { margin-bottom: 3px; }
     
-    /* --- 8. EDUCATION GRID (2 Columns, matching heights) --- */
+    /* EDUCATION GRID */
     .education-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -1351,7 +1444,7 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
     }
 }
 
-/* CONNECT: keep the button vertically centered with the other nav labels. */
+/* CONNECT PREVIEW */
 .nav-links > li.nav-preview-connect {
     position: relative;
     min-height: 0;
@@ -1359,12 +1452,10 @@ footer { padding: 40px 0; border-top: 1px solid var(--border); color: #888; font
     align-items: center;
 }
 
-/* The Connect preview begins below the full button, never over it. */
 .nav-links > li.nav-preview-connect .nav-preview-link {
     top: calc(100% + 8px);
 }
 
-/* Preserve a small hover bridge between the button and its preview. */
 .nav-links > li.nav-preview-connect::after {
     content: '';
     position: absolute;

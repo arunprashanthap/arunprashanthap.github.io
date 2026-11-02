@@ -181,10 +181,53 @@ document.addEventListener('DOMContentLoaded', () => {
             if (navLinks) navLinks.classList.remove('active');
         });
     });
+
+    // 8. VIMEO VIDEO OVERLAY MODAL
+    const openBtn = document.getElementById('openAgenticModal');
+    const modal = document.getElementById('videoModal');
+    const closeBtn = document.getElementById('closeVideoModal');
+    const vimeoIframe = document.getElementById('vimeoPlayer');
+    const videoUrl = "https://player.vimeo.com/video/1242235565?autoplay=1";
+
+    const openModal = () => {
+        if (!modal || !vimeoIframe) return;
+        vimeoIframe.src = videoUrl;
+        modal.classList.add('active');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+    };
+
+    const closeModal = () => {
+        if (!modal || !vimeoIframe) return;
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
+        vimeoIframe.src = "";
+        document.body.style.overflow = '';
+    };
+
+    if (openBtn && modal) {
+        openBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal();
+        });
+
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeModal);
+        }
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+    }
 });
 
-// 8. NAVIGATION SECTION PREVIEWS
-// Static previews of the destination sections. Every preview is itself a link to the same section.
+// 9. NAVIGATION SECTION PREVIEWS
 document.addEventListener('DOMContentLoaded', () => {
     const navItems = Array.from(document.querySelectorAll('.nav-links > li'));
 
@@ -218,7 +261,6 @@ document.addEventListener('DOMContentLoaded', () => {
         preview.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
         preview.querySelectorAll('script, style').forEach(el => el.remove());
 
-        // Convert every interactive element inside the cloned section into a static visual element.
         preview.querySelectorAll('button, input, select, textarea').forEach(el => {
             const staticEl = document.createElement('div');
             staticEl.className = el.className;
@@ -232,7 +274,6 @@ document.addEventListener('DOMContentLoaded', () => {
             el.replaceWith(staticEl);
         });
 
-        // Expertise is permanently frozen to its default first pillar.
         if (targetId === 'expertise') {
             preview.querySelectorAll('.pillar-panel').forEach((panel, index) => {
                 panel.classList.toggle('active', index === 0);
@@ -245,12 +286,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // About uses a controlled canvas so the full image and both paragraphs remain visible.
         if (targetId === 'about') {
             preview.classList.add('preview-static-about');
         }
 
-        // Impact uses a controlled four column canvas matching the live section.
         if (targetId === 'impact') {
             preview.classList.add('preview-static-impact');
         }

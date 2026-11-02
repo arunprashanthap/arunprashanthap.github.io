@@ -64,7 +64,10 @@
             <div class="hero-cta-block">
                 <div class="portfolio-deck">
                     <span class="deck-label">VIEW WORK:</span>
-                    <a href="https://docs.google.com/presentation/d/1bn2vsa-xVAFeiwK09dfmcaPU317VmBhtF6G3NQ1E2NQ/edit" target="_blank" class="deck-card">
+                    <a href="#videoModal" class="deck-card" id="openAgenticModal">
+						<i class="fas fa-certificate verified-badge"></i> Agentic AI
+					</a>
+					<a href="https://docs.google.com/presentation/d/1bn2vsa-xVAFeiwK09dfmcaPU317VmBhtF6G3NQ1E2NQ/edit" target="_blank" class="deck-card">
                         <i class="fas fa-file-powerpoint"></i> Dolby
                     </a>
                     <a href="https://docs.google.com/presentation/d/1nzUDjCC__6XLYF-YG5W0V_B-zEhU2tTSiEU5c1SwonY/edit?usp=sharing" target="_blank" class="deck-card">
@@ -821,6 +824,22 @@
             <p>ARUN PRASHANTH - 2027</p>
         </div>
     </footer>
+<!-- Vimeo Video Modal Overlay -->
+    <div id="videoModal" class="video-modal-overlay" aria-hidden="true">
+        <div class="video-modal-container">
+            <button type="button" class="video-modal-close" id="closeVideoModal" aria-label="Close video">&times;</button>
+            <div class="video-modal-wrapper">
+                <iframe 
+                    id="vimeoPlayer" 
+                    src="" 
+                    title="Agentic AI Video" 
+                    frameborder="0" 
+                    allow="autoplay; fullscreen; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
